@@ -3,7 +3,7 @@
 use App\Board;
 use App\Listing;
 
-class ArchivedAListTest extends TestCase
+class ArchivedAListTest extends FeatureTestCase
 {
 	public function test_archive_a_list()
 	{

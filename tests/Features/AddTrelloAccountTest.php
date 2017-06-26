@@ -14,8 +14,8 @@ class AddTrelloAccountTest extends FeatureTestCase
 
 		//When
 		$this->visitRoute('trello_accounts.add')
-			->type($token, 'trello_token')
 			->type($name, 'name')
+			->type($token, 'trello_token')
 			->press('Add');
 
 		//Then

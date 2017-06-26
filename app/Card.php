@@ -13,7 +13,7 @@ class Card extends Model
 	{
 		$client =  new \GuzzleHttp\Client();
 		$board = Board::getApi($list->idBoard, $account);
-		$url = self::listUrl($account, $board);
+		$url = self::listUrl($account, $list);
 		$res = $client->request('GET', $url);
 
 		$list = json_decode($res->getBody(), true);
@@ -121,9 +121,9 @@ class Card extends Model
     	return 'https://api.trello.com/1/cards'.$account->keyUrl;
     }
 
-    private static function listUrl(TrelloAccount $account, Board $board)
+    private static function listUrl(TrelloAccount $account, Listing $list)
     {
-    	return 'https://api.trello.com/1/boards/'. $board->id .'/cards'.$account->keyUrl;
+    	return 'https://api.trello.com/1/lists/'. $list->id .'/cards'.$account->keyUrl;
     }
 
     private static function getUrl($id, TrelloAccount $account)
