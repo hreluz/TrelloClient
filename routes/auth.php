@@ -27,3 +27,4 @@ Route::post('lists/{account}/{board}', ['uses' => 'ListsController@store', 'as' 
 
 Route::get('lists/{account}/{board}/edit/{list}', ['uses' => 'ListsController@edit', 'as' => 'lists.edit']);
 Route::put('lists/{account}/{board}/{list}', ['uses' => 'ListsController@update', 'as' => 'lists.update']);
+Route::put('lists/{account}/{board}/archived/{list}', ['uses' => 'ListsController@archived', 'as' => 'lists.archived']);

@@ -60,4 +60,13 @@ class ListsController extends Controller
 
     	return redirect( route('lists.index', [$account, $board ]));
 	}
+
+	public function archived(Account $account, $board_id, $list_id)
+	{
+		$board = Board::getApi($board_id, $account);
+		$list = Listing::getApi($list_id, $account);
+		$list->archivedApi($account, $board);
+
+    	return redirect( route('lists.index', [$account, $board ]));	
+	}
 }

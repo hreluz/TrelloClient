@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Listing extends Model
 {
-	protected $fillable = ['id' , 'name', 'idBoard'];
+	protected $fillable = ['id' , 'name', 'idBoard', 'closed'];
 	protected $casts = ['id' => 'string'];
 
     public static function allApi(TrelloAccount $account, Board $board)
@@ -89,6 +89,29 @@ class Listing extends Model
 
     }
 
+    public function archivedApi(TrelloAccount $account, Board $board)
+    {
+		$client =  new \GuzzleHttp\Client();
+		$url = self::archivedUrl($this->id, $account);
+
+		$params = [
+			'form_params' => [
+				'idBoard' => $board->id
+			],
+		];
+		
+		try {
+			$res = $client->request('PUT', $url, $params);
+			$attributes = json_decode($res->getBody(), true);
+			$list = new static($attributes);
+			return $list;
+		}
+		catch ( Exception $e ) {
+			abort('404', 'List not found');
+		}
+
+    }
+
 
     //Private methods
 
@@ -105,5 +128,10 @@ class Listing extends Model
     private static function getUrl($id, TrelloAccount $account)
     {
     	return 'https://api.trello.com/1/lists/'.$id.$account->keyUrl;
+    }
+
+    private static function archivedUrl($id, TrelloAccount $account)
+    {
+    	return 'https://api.trello.com/1/lists/'.$id.$account->keyUrl.'&closed=true';
     }
 }
