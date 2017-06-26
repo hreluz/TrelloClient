@@ -15,4 +15,26 @@
         </div>
     </div>
 </div>
+
+<form id="delete-form" method="POST" action="{{ route('boards.delete', [$account, 'DELETE_ID']) }}">
+    {{ csrf_field() }}
+    {{ method_field('DELETE') }}
+</form>
+
+@endsection
+
+@section('scripts')
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.delete').click(function(e){
+                e.preventDefault();
+
+                let form = $('#delete-form');
+                let url = $(this).data('delete');
+                
+                form.attr('action', url);
+                form.submit();
+            });
+        });
+    </script>
 @endsection

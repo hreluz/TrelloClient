@@ -27,7 +27,7 @@ class BoardsController extends Controller
 			'name' => 'required'
 		]);
 
-		$board = Board::createApi($request, $account);
+		$board = Board::createApi($request->all(), $account);
 		
 		$message = $board ? 'Board was successfully created' : 'There was an error, please try again !';
 		$status = $board ? 'success' : 'danger';
@@ -49,7 +49,15 @@ class BoardsController extends Controller
 		]);
 
 		$board = Board::getApi($board_id, $account);
-		$board = $board->updateApi($request, $account);	
+		$board = $board->updateApi($request->all(), $account);	
     	return redirect(route('boards.index',$account ));
+	}
+
+	public function delete(Account $account, $board_id)
+	{
+		$board = Board::getApi($board_id, $account);
+		$board->deleteApi($account);
+
+    	return redirect(route('boards.index',$account ));		
 	}
 }

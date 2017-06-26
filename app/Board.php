@@ -28,14 +28,14 @@ class Board extends Model
 		return $boards;
 	}
 	
-    public static function createApi(Request $request, TrelloAccount $account)
+    public static function createApi($attributes, TrelloAccount $account)
     {
 		$client =  new \GuzzleHttp\Client();
 		$url = self::createUrl($account);
 
 		$params = [
 			'form_params' => [
-				'name' => $request->get('name')
+				'name' => $attributes['name']
 			],
 		];
 
@@ -67,14 +67,14 @@ class Board extends Model
 		}
     }
 
-    public function updateApi(Request $request, TrelloAccount $account)
+    public function updateApi($attributes, TrelloAccount $account)
     {
 		$client =  new \GuzzleHttp\Client();
 		$url = self::getUrl($this->id, $account);
 
 		$params = [
 			'form_params' => [
-				'name' => $request->get('name')
+				'name' => $attributes['name']
 			],
 		];
 		
@@ -90,6 +90,20 @@ class Board extends Model
 
     }
 
+    public function deleteApi(TrelloAccount $account)
+    {
+		$client =  new \GuzzleHttp\Client();
+		$url = self::getUrl($this->id, $account);
+
+		try {
+			$res = $client->request('DELETE', $url);
+			json_decode($res->getBody(), true);
+		}
+		catch ( Exception $e ) {
+			abort('404', 'Board not found');
+		}
+
+    }
 
     //Private methods
 
