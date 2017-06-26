@@ -26,8 +26,6 @@ class CreateABoardTest extends FeatureTestCase
 		$account = $this->defaultTrelloAccount();
 		$user = $account->user;
 
-		$this->actingAs($user);
-
 		$this->actingAs($this->defaultUser());
 
 		//When

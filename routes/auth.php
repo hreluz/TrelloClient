@@ -18,3 +18,9 @@ Route::post('boards/{account}', ['uses' => 'BoardsController@store', 'as' => 'bo
 Route::get('boards/{account}/edit/{board}', ['uses' => 'BoardsController@edit', 'as' => 'boards.edit']);
 Route::put('boards/{account}/{board}', ['uses' => 'BoardsController@update', 'as' => 'boards.update']);
 Route::delete('boards/{account}/{board}', ['uses' => 'BoardsController@delete', 'as' => 'boards.delete']);
+
+//Lists
+Route::get('lists/{account}/{board}', ['uses' => 'ListsController@index', 'as' => 'lists.index']);
+
+Route::get('lists/{account}/create/{board}', ['uses' => 'ListsController@create', 'as' => 'lists.create']);
+Route::post('lists/{account}/{board}', ['uses' => 'ListsController@store', 'as' => 'lists.store']);
