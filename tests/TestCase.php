@@ -38,12 +38,22 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
 
     public function defaultTrelloAccount(array $attributes = [], $working = true)
     {
-        if($this->defaultTrelloAccount)
+        if($this->defaultTrelloAccount):
+            $this->cleanTrello();
             return $this->defaultTrelloAccount;
+        endif;
 
         if($working)
             $attributes['trello_token'] = env('TRELLO_ACCOUNT_KEY');
 
-        return $this->defaultTrelloAccount = factory(TrelloAccount::class)->create($attributes); 
+        $this->defaultTrelloAccount = factory(TrelloAccount::class)->create($attributes); 
+        $this->cleanTrello();
+
+        return $this->defaultTrelloAccount;
+    }
+
+    private function cleanTrello()
+    {
+        $this->defaultTrelloAccount->deleteAllBoards();
     }
 }

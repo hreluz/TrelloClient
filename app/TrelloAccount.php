@@ -24,4 +24,11 @@ class TrelloAccount extends Model
 	{
 		return $this->belongsTo(User::class);
 	}
+
+	public function deleteAllBoards()
+	{
+		$boards = Board::allApi($this);
+		foreach ($boards as $board)
+			$board->deleteApi($this);
+	}
 }
