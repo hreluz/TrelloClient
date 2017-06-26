@@ -60,4 +60,12 @@ class CardsController extends Controller
     	return redirect( route('cards.index', [$account, $list ]));
 	}
 
+	public function archived(Account $account, $list_id, $card_id)
+	{
+		$list = Listing::getApi($list_id, $account);
+		$card = Card::getApi($card_id, $account);
+		$card->archivedApi($account, $list);
+
+    	return redirect( route('cards.index', [$account, $list ]));
+	}
 }

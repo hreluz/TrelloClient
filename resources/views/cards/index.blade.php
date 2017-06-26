@@ -15,5 +15,25 @@
         </div>
     </div>
 </div>
+<form id="archived-form" method="POST" action="{{ route('cards.archived', [$account, $list, 'archived_ID']) }}">
+    {{ csrf_field() }}
+    {{ method_field('PUT') }}
+</form>
 
+@endsection
+
+@section('scripts')
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.archived').click(function(e){
+                e.preventDefault();
+
+                let form = $('#archived-form');
+                let url = $(this).data('archived');
+                
+                form.attr('action', url);
+                form.submit();
+            });
+        });
+    </script>
 @endsection

@@ -19,7 +19,7 @@ Route::get('boards/{account}/edit/{board}', ['uses' => 'BoardsController@edit', 
 Route::put('boards/{account}/{board}', ['uses' => 'BoardsController@update', 'as' => 'boards.update']);
 Route::delete('boards/{account}/{board}', ['uses' => 'BoardsController@delete', 'as' => 'boards.delete']);
 
-//Lists
+//cards
 Route::get('lists/{account}/{board}', ['uses' => 'ListsController@index', 'as' => 'lists.index']);
 
 Route::get('lists/{account}/create/{board}', ['uses' => 'ListsController@create', 'as' => 'lists.create']);
@@ -37,3 +37,4 @@ Route::post('cards/{account}/{list}', ['uses' => 'CardsController@store', 'as' =
 
 Route::get('cards/{account}/{list}/edit/{card}', ['uses' => 'CardsController@edit', 'as' => 'cards.edit']);
 Route::put('cards/{account}/{list}/{card}', ['uses' => 'CardsController@update', 'as' => 'cards.update']);
+Route::put('cards/{account}/{list}/archived/{card}', ['uses' => 'CardsController@archived', 'as' => 'cards.archived']);

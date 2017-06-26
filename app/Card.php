@@ -90,6 +90,29 @@ class Card extends Model
 
     }
 
+    public function archivedApi(TrelloAccount $account, Listing $list)
+    {
+		$client =  new \GuzzleHttp\Client();
+		$url = self::archivedUrl($this->id, $account);
+
+		$params = [
+			'form_params' => [
+				'idList' => $list->id
+			],
+		];
+		
+		try {
+			$res = $client->request('PUT', $url, $params);
+			$attributes = json_decode($res->getBody(), true);
+			$list = new static($attributes);
+			return $list;
+		}
+		catch ( Exception $e ) {
+			abort('404', 'Card not found');
+		}
+
+    }
+
 
     //Private methods
 
@@ -106,6 +129,11 @@ class Card extends Model
     private static function getUrl($id, TrelloAccount $account)
     {
     	return  'https://api.trello.com/1/cards/'.$id.$account->keyUrl;
+    }
+
+    private static function archivedUrl($id, TrelloAccount $account)
+    {
+    	return 'https://api.trello.com/1/cards/'.$id.$account->keyUrl.'&closed=true';
     }
 
 }
