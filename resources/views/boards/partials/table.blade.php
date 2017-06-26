@@ -9,7 +9,7 @@
 		@foreach($boards as $board)
 			<tr>
 				<td>{{ $board->name }}</td>
-				<td></td>
+				<td><a href="{{ route('boards.edit', [$account, $board ]) }}">Edit</a></td>
 			</tr>
 		@endforeach
 	</tbody>

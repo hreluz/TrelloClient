@@ -35,4 +35,21 @@ class BoardsController extends Controller
     	Session::flash('alert-'.$status,$message);
     	return redirect(route('boards.index',$account ));
 	}
+
+	public function edit(Account $account, $board_id)
+	{
+		$board = Board::getApi($board_id, $account);
+		return view('boards.edit', compact('account', 'board'));
+	}
+
+	public function update(Request $request, Account $account, $board_id)
+	{
+		$this->validate($request,[
+			'name' => 'required'
+		]);
+
+		$board = Board::getApi($board_id, $account);
+		$board = $board->updateApi($request, $account);	
+    	return redirect(route('boards.index',$account ));
+	}
 }

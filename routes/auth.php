@@ -11,5 +11,9 @@ Route::get('dashboard/{trello_account}',  ['uses' => 'DashboardController@index'
 
 //Boards
 Route::get('boards/{account}', ['uses' => 'BoardsController@index', 'as' => 'boards.index']);
+
 Route::get('boards/{account}/create', ['uses' => 'BoardsController@create', 'as' => 'boards.create']);
 Route::post('boards/{account}', ['uses' => 'BoardsController@store', 'as' => 'boards.store']);
+
+Route::get('boards/{account}/edit/{board}', ['uses' => 'BoardsController@edit', 'as' => 'boards.edit']);
+Route::put('boards/{account}/{board}', ['uses' => 'BoardsController@update', 'as' => 'boards.update']);

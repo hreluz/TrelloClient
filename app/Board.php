@@ -67,6 +67,29 @@ class Board extends Model
 		}
     }
 
+    public function updateApi(Request $request, TrelloAccount $account)
+    {
+		$client =  new \GuzzleHttp\Client();
+		$url = self::getUrl($this->id, $account);
+
+		$params = [
+			'form_params' => [
+				'name' => $request->get('name')
+			],
+		];
+		
+		try {
+			$res = $client->request('PUT', $url, $params);
+			$attributes = json_decode($res->getBody(), true);
+			$board = new static($attributes);
+			return $board;
+		}
+		catch ( Exception $e ) {
+			abort('404', 'Board not found');
+		}
+
+    }
+
 
     //Private methods
 
@@ -84,4 +107,5 @@ class Board extends Model
     {
     	return 'https://api.trello.com/1/boards/'.$id.$account->keyUrl;
     }
+
 }
