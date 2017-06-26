@@ -11,7 +11,8 @@
 				<td>{{ $list->name }}</td>
 				<td>
 					<a href="{{ route('lists.edit', [$account, $board, $list]) }}">Edit</a>| 
-					<a href="#" class="archived" data-id="{{ $list->id }}" data-archived="{{ route('lists.archived', [$account, $board, $list])}}">Archive</a>
+					<a href="#" class="archived" data-id="{{ $list->id }}" data-archived="{{ route('lists.archived', [$account, $board, $list])}}">Archive</a>|
+					<a href="{{ route('cards.index', [$account, $list ]) }}">Show Cards</a> 
 				</td>
 			</tr>
 		@endforeach
