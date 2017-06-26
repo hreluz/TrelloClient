@@ -39,4 +39,25 @@ class ListsController extends Controller
     	Session::flash('alert-'.$status,$message);
     	return redirect( route('lists.index', [$account, $board ]));
 	}
+
+	public function edit(Account $account, $board_id, $list_id)
+	{
+		$board = Board::getApi($board_id, $account);
+		$list = Listing::getApi($list_id, $account);
+
+		return view('lists.edit', compact('account', 'board','list'));
+	}
+
+	public function update(Request $request, Account $account, $board_id, $list_id)
+	{
+		$this->validate($request,[
+			'name' => 'required'
+		]);
+
+		$board = Board::getApi($board_id, $account);
+		$list = Listing::getApi($list_id, $account);
+		$list = $list->updateApi($request->all(), $account, $board);	
+
+    	return redirect( route('lists.index', [$account, $board ]));
+	}
 }

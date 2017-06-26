@@ -9,7 +9,9 @@
 		@foreach($lists as $list)
 			<tr>
 				<td>{{ $list->name }}</td>
-				<td></td>
+				<td>
+					<a href="{{ route('lists.edit', [$account, $board, $list]) }}">Edit</a>
+				</td>
 			</tr>
 		@endforeach
 	</tbody>

@@ -24,3 +24,6 @@ Route::get('lists/{account}/{board}', ['uses' => 'ListsController@index', 'as' =
 
 Route::get('lists/{account}/create/{board}', ['uses' => 'ListsController@create', 'as' => 'lists.create']);
 Route::post('lists/{account}/{board}', ['uses' => 'ListsController@store', 'as' => 'lists.store']);
+
+Route::get('lists/{account}/{board}/edit/{list}', ['uses' => 'ListsController@edit', 'as' => 'lists.edit']);
+Route::put('lists/{account}/{board}/{list}', ['uses' => 'ListsController@update', 'as' => 'lists.update']);
