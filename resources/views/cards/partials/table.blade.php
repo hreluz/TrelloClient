@@ -10,6 +10,7 @@
 			<tr>
 				<td>{{ $card->name }}</td>
 				<td>
+					<a href="{{ route('cards.edit', [$account, $list, $card]) }}">Edit</a>
 				</td>
 			</tr>
 		@endforeach

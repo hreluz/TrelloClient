@@ -39,4 +39,25 @@ class CardsController extends Controller
     	Session::flash('alert-'.$status,$message);
     	return redirect( route('cards.index', [$account, $list ]));
 	}
+
+	public function edit(Account $account, $list_id, $card_id)
+	{
+		$list = Listing::getApi($list_id, $account);
+		$card = Card::getApi($card_id, $account);
+
+		return view('cards.edit', compact('account', 'list','card'));
+	}
+
+	public function update(Request $request, Account $account, $list_id, $card_id)
+	{
+		$this->validate($request,[
+			'name' => 'required'
+		]);
+		$list = Listing::getApi($list_id, $account);
+		$card = Card::getApi($card_id, $account);
+		$card = $card->updateApi($request->all(), $account, $list);	
+
+    	return redirect( route('cards.index', [$account, $list ]));
+	}
+
 }

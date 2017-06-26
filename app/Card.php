@@ -49,6 +49,47 @@ class Card extends Model
 		return false;
     }
 
+    public static function getApi($id, TrelloAccount $account)
+    {
+		$client =  new \GuzzleHttp\Client();
+
+		$url = self::getUrl($id, $account);
+
+		try {
+			$res = $client->request('GET', $url);
+			$attributes = json_decode($res->getBody(), true);
+			$board = new static($attributes);
+			return $board;
+		}
+		catch ( Exception $e ) {
+			abort('404', 'Card not found');
+		}
+    }
+
+    public function updateApi($attributes, TrelloAccount $account, Listing $list)
+    {
+		$client =  new \GuzzleHttp\Client();
+		$url = self::getUrl($this->id, $account);
+		
+		$params = [
+			'form_params' => [
+				'name' => $attributes['name'],
+				'idList' => $list->id
+			],
+		];
+		
+		try {
+			$res = $client->request('PUT', $url, $params);
+			$attributes = json_decode($res->getBody(), true);
+			$list = new static($attributes);
+			return $list;
+		}
+		catch ( Exception $e ) {
+			abort('404', 'Card not found');
+		}
+
+    }
+
 
     //Private methods
 
@@ -61,4 +102,10 @@ class Card extends Model
     {
     	return 'https://api.trello.com/1/boards/'. $board->id .'/cards'.$account->keyUrl;
     }
+
+    private static function getUrl($id, TrelloAccount $account)
+    {
+    	return  'https://api.trello.com/1/cards/'.$id.$account->keyUrl;
+    }
+
 }

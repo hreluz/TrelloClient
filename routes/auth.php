@@ -34,3 +34,6 @@ Route::get('cards/{account}/{list}', ['uses' => 'CardsController@index', 'as' =>
 
 Route::get('cards/{account}/create/{list}', ['uses' => 'CardsController@create', 'as' => 'cards.create']);
 Route::post('cards/{account}/{list}', ['uses' => 'CardsController@store', 'as' => 'cards.store']);
+
+Route::get('cards/{account}/{list}/edit/{card}', ['uses' => 'CardsController@edit', 'as' => 'cards.edit']);
+Route::put('cards/{account}/{list}/{card}', ['uses' => 'CardsController@update', 'as' => 'cards.update']);
