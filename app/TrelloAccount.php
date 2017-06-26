@@ -11,7 +11,7 @@ class TrelloAccount extends Model
 	//Custom Attribute
 	public function getDashboardUrlAttribute()
 	{
-		return route('dashboard.index', $this->id);
+		return route('boards.index', $this->id);
 	}
 
 	public function getKeyUrlAttribute()

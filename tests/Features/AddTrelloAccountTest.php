@@ -9,7 +9,7 @@ class AddTrelloAccountTest extends FeatureTestCase
 		$user = $this->defaultUser();
 	   	$this->actingAs($user);
 
-		$token = 'a random token';
+		$token = env('TRELLO_ACCOUNT_KEY');
 		$name = 'Account 1';
 
 		//When
