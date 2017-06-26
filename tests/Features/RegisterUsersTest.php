@@ -10,7 +10,7 @@ class RegisterUsersTest extends FeatureTestCase
 		$password = '123123';
 
 		//When
-		$this->visit(route('register'))
+		$this->visitRoute('register')
 			->type($username,'username')
 			->type($password,'password')
 			->type($password,'password_confirmation')
@@ -29,7 +29,7 @@ class RegisterUsersTest extends FeatureTestCase
 
 	public function test_register_user_form_validation()
 	{
-		$this->visit(route('register'))
+		$this->visitRoute('register')
 			->press('Register')
 			->seeErrors([
 				'name' => 'The name field is required',

@@ -31,4 +31,18 @@ class User extends Authenticatable
         if(!empty(trim($value)))
             $this->attributes['password'] = \Hash::make($value);
     }
+
+    //Relationships
+    public function trello_accounts()
+    {
+        return $this->hasMany(TrelloAccount::class);
+    }
+
+
+    public function addTrelloAccount(array $data)
+    {
+        $trello_account = new TrelloAccount($data);
+        $this->trello_accounts()->save($trello_account);
+        return $trello_account;
+    }
 }
