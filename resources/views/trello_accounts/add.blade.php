@@ -19,7 +19,7 @@
 
                         @include('trello_accounts.partials.fields')
 
-                        <input id="trello_token" type="text" class="form-control" name="trello_token" value="{{ old('trello_token') }}" >
+                        <input id="trello_token" type="text" class="form-control hidden" name="trello_token" value="{{ old('trello_token') }}" >
 
                         <div class="form-group">
                             <div class="col-md-8 col-md-offset-4">

@@ -7,6 +7,11 @@ use App\TrelloAccount;
 
 class TrelloAccountsController extends Controller
 {
+	public function index()
+	{
+		$accounts = TrelloAccount::all();
+		return view('trello_accounts.index', compact('accounts'));
+	}
 
 	public function add()
 	{

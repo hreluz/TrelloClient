@@ -14,6 +14,11 @@ class TrelloAccount extends Model
 		return route('dashboard.index', $this->id);
 	}
 
+	public function getKeyUrlAttribute()
+	{
+		return '?key='.env('TRELLO_KEY').'&token='.$this->trello_token;
+	}
+	
 	//Relationships
 	public function user()
 	{

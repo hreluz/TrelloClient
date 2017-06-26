@@ -28,5 +28,8 @@ $factory->define(App\TrelloAccount::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'trello_token' => str_random(10),
+        'user_id' => function(){
+            return factory(App\User::class)->create()->id;
+        }
     ];
 });
